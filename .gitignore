@@ -1,2 +1,6 @@
 #Don't track the contents of these folders:
 node_modules/
+
+config.js
+
+.vscode/
