@@ -4,6 +4,7 @@ const bookDAO = require('../DAO/bookDAO.js');
 const book = require('../models/book.js');
 
 router.get('/', function(req,res){
+    console.log("logging the user object.......", req.session.passport.user);
     res.send("INFO about all the books here!");
 })
 

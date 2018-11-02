@@ -6,13 +6,18 @@ const config = require('./config.js')
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
+const mongoStore = require('connect-mongo')(expressSession);
 const FacebookStrategy = require('passport-facebook');
 
 const path = require('path');
-const user = require('./user.js');
-const User = user.User;
+// const user = require('./user.js');
+var user = require('./DAO/userDAO.js');
+// const User = user.User;
 
 const passport = require('passport');
+// const db = require('./dbConnection.js');
+const mongoose = require('mongoose');
+
 const port = 3000;
 
 const booksRoute = require('./routes/booksRoute.js');
@@ -27,7 +32,8 @@ const failureRoute = require('./routes/failureRoute.js');
 app.use(expressSession({
   secret: 'MyVoiceIsMyPassportVerifyMe',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new mongoStore({mongooseConnection: mongoose.connection})
 }));
 
   // app.use(express.static('public'));
@@ -40,14 +46,20 @@ app.use(expressSession({
 
 
 passport.serializeUser(function(user, done) {
-  done(null, 1);
+  // console.log("user object logging........", user)
+  var sessionUser = {
+    user_name: user.user_name,
+    user_id: user.user_id,
+    role: user.role
+  }
+  done(null, sessionUser);
 });
 
-passport.deserializeUser(function(id, done) {
+passport.deserializeUser(function(sessionUser, done) {
   // User.findById(id, function(err, user) {
   //   done(err, user);
   // });
-  done(null,1);
+  done(null,sessionUser);
 });
 
 passport.use(new FacebookStrategy({
@@ -58,8 +70,10 @@ passport.use(new FacebookStrategy({
 	passReqToCallback: true
 },
 function(req, accessToken, refreshToken, profile, cb){
-	console.log("profile.........",profile);
-	return User.findOrCreate({ facebookId: profile }, function(err, user){
+  // console.log("profile.........",profile);
+  
+
+	return user.findOrCreateUser(profile, function(err, user){
 		console.log("i am here");
 		return cb(err,user);
 
@@ -111,7 +125,7 @@ app.get('/auth/facebook/callback',passport.authenticate('facebook',{
 app.get('/',(req,res)=> res.send("This route is open for all!"))
 
 var isAuthorized = function(req,res,next){
-  if(!req.session.user){
+  if(!req.session.passport.user){
     res.redirect('/');
   }
   else{
