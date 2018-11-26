@@ -4,11 +4,16 @@
   "description": "A Book sharing Application",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --config ./webpack.config.js --open --mode development",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Siddhant Jain",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "@material-ui/icons": "^3.0.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
@@ -17,6 +22,27 @@
     "mongoose": "^5.3.7",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "uniqid": "^5.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.6",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   }
 }

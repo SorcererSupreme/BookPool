@@ -6,7 +6,7 @@ var findOrCreateUser = function(user_profile,cb){
         "facebook_id": user_profile.id
     },function(err,res){
         // console.log("error",err);
-        // console.log("response",res);
+        // console.log("profile",user_profile);
         if(err){
             return cb(err,null)
         }
@@ -30,7 +30,7 @@ var findOrCreateUser = function(user_profile,cb){
             })
         }
         else{
-            // console.log("found user in db! ", res);
+            console.log("found user in db! ", res);
             return cb(null,res);
         }
     })

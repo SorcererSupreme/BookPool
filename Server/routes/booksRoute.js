@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const bookDAO = require('../DAO/bookDAO.js');
 const book = require('../models/book.js');
+const uniqid = require('uniqid');
 
 router.get('/', function(req,res){
     console.log("logging the user object.......", req.session.passport.user);
@@ -9,12 +10,19 @@ router.get('/', function(req,res){
 })
 
 router.post('/add', function(req,res){
-    var name = req.body.name;
-    var authors = req.body.authors;
+    var book_name = req.body.book_name;
+    var authors_list = req.body.authors_list;
+    var genre = req.body.genre;
+    var book_id = uniqid();
+    var user_id = req.session.passport.user.user_id;
+
 
     var newBook = new book({
-        name: name,
-        authors: authors
+        book_name: book_name,
+        authors_list: authors_list,
+        genre: genre,
+        book_id: book_id,
+        user_id: user_id
     })
     console.log(".................",newBook);
     bookDAO(newBook, function(err,success){
