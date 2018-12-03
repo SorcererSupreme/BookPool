@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {thunk_login_action} from '../redux/actions/loginActions'
+import {thunk_login_action} from '../redux/actions/loginActions';
+import Button from '@material-ui/core/Button'
 
 class Login extends Component {
     constructor(props){
@@ -17,21 +18,14 @@ class Login extends Component {
         if(this.props.isLoggedIn == false){
             return (
                 <div>
-                    <a href = "/auth/facebook/">FB login</a>
-                    <h3>login Component</h3>
+                    <Button href = "/auth/facebook/" variant="contained" color="primary" >
+                        FB login
+                     </Button>
                 </div>
             )
         }
 
-        else if (this.props.isLoggedIn == true) {
-            return (
-                <div>
-
-                    <div>{this.props.userName}</div>
-                    <h3>login Component</h3>
-                </div>
-            )
-        }
+        else return null;
 
     }
 }

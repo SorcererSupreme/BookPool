@@ -12,6 +12,8 @@ import LeftPanel from './Components/LeftPanel';
 import MiddlePanel from './Components/MiddlePanel';
 import RightPanel from './Components/RightPanel';
 import Header from './Components/Header';
+import Grid from '@material-ui/core/Grid';
+
 // import './app.css';
 
 
@@ -25,11 +27,15 @@ class App extends Component{
                 <Provider store = {store}>
                 <Router>
                     <div>
-                        <Route path = "/" component = {Login} />
                         <Header />
-                        <LeftPanel />
-                        <MiddlePanel />
-                        <RightPanel />
+                        <Route path = "/" component = {Login} />
+                        <Grid container spacing = {24} 
+                                style = {{backgroundColor :'#e9ebee', height: 'auto'}}
+                                justify = "center">
+                            <LeftPanel />
+                            <MiddlePanel />
+                            <RightPanel />
+                        </Grid>
                     </div>
                 </Router>
                 </Provider>

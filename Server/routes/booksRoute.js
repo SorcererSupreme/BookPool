@@ -3,11 +3,18 @@ var router = express.Router();
 const bookDAO = require('../DAO/bookDAO.js');
 const book = require('../models/book.js');
 const uniqid = require('uniqid');
+// const passportConfig = require('../config/passportConfig.js');
+
+
+// router.use(passportConfig.initialize());
+
 
 router.get('/', function(req,res){
     console.log("logging the user object.......", req.session.passport.user);
     res.send("INFO about all the books here!");
 })
+
+
 
 router.post('/add', function(req,res){
     var book_name = req.body.book_name;
