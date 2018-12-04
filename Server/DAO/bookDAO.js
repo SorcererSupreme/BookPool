@@ -14,5 +14,18 @@ var addBook = function(book,cb){
     });
 }
 
+var getBooks = function(user_id, cb){
+    book.find({user_id: user_id}, "book_name authors_list genre", function(error,docs){
+        if(error){
+            cb(error)
+        }
+        else{
+            cb(null,docs)
+        }
+    })
+}
 
-module.exports = addBook;
+module.exports = {
+     addBook,
+     getBooks
+    };

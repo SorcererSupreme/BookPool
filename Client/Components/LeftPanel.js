@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './PanelStyle';
 
+import {thunk_book_fetch_action} from '../redux/actions/BookFetchActions'
+
 class LeftPanel extends Component {
     render(){
         const { classes } = this.props;
@@ -20,7 +22,7 @@ class LeftPanel extends Component {
                             {this.props.userName}
                         </Typography>
                         
-                        <button>Get All Books</button>
+                        <button onClick = {this.props.getBooks}>Get All Books</button>
                         {/* </Paper> */}
                     </Grid>
             )
@@ -37,8 +39,16 @@ const mapStateToProps = (state) => {
     }
 }
 
-
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getBooks: () => {
+            // console.log("triggered!")
+            dispatch(thunk_book_fetch_action());
+        }
+    }
+}
 
 export default withStyles(styles)(connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(LeftPanel));

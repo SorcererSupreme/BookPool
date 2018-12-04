@@ -1,6 +1,6 @@
 const express = require('express');
 var router = express.Router();
-const bookDAO = require('../DAO/bookDAO.js');
+const {addBook, getBooks} = require('../DAO/bookDAO.js');
 const book = require('../models/book.js');
 const uniqid = require('uniqid');
 // const passportConfig = require('../config/passportConfig.js');
@@ -10,8 +10,18 @@ const uniqid = require('uniqid');
 
 
 router.get('/', function(req,res){
-    console.log("logging the user object.......", req.session.passport.user);
-    res.send("INFO about all the books here!");
+    var user_id = req.session.passport.user.user_id;
+    getBooks(user_id, function(err,docs){
+        if(err){
+            res.send("Unable to fetch Books");
+        }
+        else{
+            console.log("books fetched ====================>");
+            console.log(docs);
+            res.send(docs);
+        }
+    })
+    // res.send("INFO about all the books here!");
 })
 
 
@@ -32,7 +42,7 @@ router.post('/add', function(req,res){
         user_id: user_id
     })
     console.log(".................",newBook);
-    bookDAO(newBook, function(err,success){
+    addBook(newBook, function(err,success){
         if(err)
         {
             console.log("ERROR in book creation, inside routes");

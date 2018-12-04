@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './PanelStyle';
-import {bookChanged} from '../redux/actions/BookActions'
-import {thunk_book_add_action} from '../redux/actions/BookActions'
+import {bookChanged} from '../redux/actions/BookAddActions'
+import {thunk_book_add_action} from '../redux/actions/BookAddActions'
 
 class MiddlePanel extends Component{
     constructor(props){
@@ -45,8 +45,7 @@ const mapStateToProps = (state) => {
     //add all the properties and than feed them in again as input values;
     //and than also dispatch a submit action that will hit the api backend and add the book
     return {
-        isLoggedIn: state.LoginReducer.isLoggedIn,
-        user_name: state.BookReducer.user_name
+        isLoggedIn: state.LoginReducer.isLoggedIn
     }
 }
 
